@@ -23,8 +23,10 @@ public class BasketPriceResult {
 
     public BigDecimal getTotal() {
         BigDecimal discountValue =
-                appliedDiscounts.stream().map(appliedDiscount -> appliedDiscount.getValue()).reduce(
-                        (BigDecimal::add)).orElse(BigDecimal.ZERO);
+                appliedDiscounts.stream()
+                        .map(appliedDiscount -> appliedDiscount.getValue())
+                        .reduce(BigDecimal::add)
+                        .orElse(BigDecimal.ZERO);
         return subTotal.subtract(discountValue);
     }
 

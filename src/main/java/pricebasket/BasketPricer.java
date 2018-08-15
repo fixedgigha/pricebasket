@@ -13,9 +13,9 @@ import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static java.math.BigDecimal.ZERO;
+import static java.util.stream.Collectors.toList;
 
 /**
  * Main basket pricing job. Determines base prices for provided products (using ProductPricer) and
@@ -32,7 +32,7 @@ public class BasketPricer {
 
     public BasketPriceResult priceBasket(Collection<Product> products) {
         Collection<PricedProduct> pricedProducts = products.stream().map(product ->
-                productPricer.getPriceForProduct(product)).collect(Collectors.toList());
+                productPricer.getPriceForProduct(product)).collect(toList());
 
         BigDecimal subTotal = pricedProducts.stream().map(product -> product.getPrice()).reduce(BigDecimal::add).orElse(ZERO);
 
@@ -50,7 +50,7 @@ public class BasketPricer {
                                 .description(discount.describe())
                                 .value(discount.calculate(pricedProducts))
                                 .build())
-                        .collect(Collectors.toList());
+                        .collect(toList());
         if (appliedDiscounts.isEmpty()) {
             appliedDiscounts = NO_DISCOUNTS;
         }
