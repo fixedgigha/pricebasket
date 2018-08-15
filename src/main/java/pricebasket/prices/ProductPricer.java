@@ -1,10 +1,12 @@
 package pricebasket.prices;
 
+import pricebasket.domain.PricedProduct;
 import pricebasket.domain.Product;
 
-import java.math.BigDecimal;
-
+/**
+ * Contract for Pricing engine implementations.
+ */
 public interface ProductPricer {
 
-    BigDecimal getPriceForProduct(Product product);
+    PricedProduct getPriceForProduct(Product product);
 }

@@ -40,6 +40,7 @@ public class Application
 
         System.out.printf("Subtotal: %s\n", format(result.getSubTotal()));
         for (AppliedDiscount discount : result.getAppliedDiscounts()) {
+
             System.out.println(discount.display());
         }
         System.out.printf("Total: %s\n", format(result.getTotal()));

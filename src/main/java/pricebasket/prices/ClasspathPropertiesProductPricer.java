@@ -1,6 +1,7 @@
 package pricebasket.prices;
 
 import org.springframework.stereotype.Component;
+import pricebasket.domain.PricedProduct;
 import pricebasket.domain.Product;
 
 import java.io.IOException;
@@ -9,6 +10,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
+/**
+ * Pricing engine implmentation that loads product prices from a classpath root file <i>prices.properties</i>.
+ * Prices should appear in standard java property form - Apple=1.30.
+ * Prices are decimals expressed in pounds.
+ */
 @Component
 public class ClasspathPropertiesProductPricer implements ProductPricer {
 
@@ -28,12 +34,12 @@ public class ClasspathPropertiesProductPricer implements ProductPricer {
     }
 
     @Override
-    public BigDecimal getPriceForProduct(Product product) {
+    public PricedProduct getPriceForProduct(Product product) {
         BigDecimal price = priceMap.get(product.getName());
         if (price == null) {
-            // Behaviour is undefined, I will throw an exception.
-            throw new RuntimeException(String.format("Product %s is unkown", product.getName()));
+            // Behaviour is undefined currently, I will throw an exception.
+            throw new UnpriceableProductException(product);
         }
-        return price;
+        return PricedProduct.builder().product(product).price(price).build();
     }
 }
