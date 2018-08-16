@@ -5,6 +5,11 @@ buildscript {
     dependencies {
         classpath 'org.springframework.boot:spring-boot-gradle-plugin:2.0.6.RELEASE'
     }
+
+}
+
+plugins {
+    id 'net.ltgt.apt' version '0.10'
 }
 
 apply plugin: 'java'
@@ -30,6 +35,8 @@ dependencies {
     runtime 'org.glassfish.jaxb:jaxb-runtime:2.3.1'
     testCompile 'org.mockito:mockito-core:2.23.0'
     testCompile 'org.springframework.boot:spring-boot-starter-test'
+    compileOnly 'org.projectlombok:lombok:1.18.2'
+    apt "org.projectlombok:lombok:1.18.2"
 }
 
 bootRun {

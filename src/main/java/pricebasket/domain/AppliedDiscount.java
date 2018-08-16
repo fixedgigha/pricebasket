@@ -1,5 +1,8 @@
 package pricebasket.domain;
 
+import lombok.Builder;
+import lombok.Value;
+import lombok.experimental.NonFinal;
 import pricebasket.AmountFormatter;
 
 import java.math.BigDecimal;
@@ -7,6 +10,9 @@ import java.math.BigDecimal;
 /**
  * Captures output of applying a discount to a product list.
  */
+@Value
+@Builder
+@NonFinal // making this non final so I can subclass the display()  of NO_DISCOUNT
 public class AppliedDiscount {
 
     public static final AppliedDiscount NO_DISCOUNT =
@@ -16,50 +22,10 @@ public class AppliedDiscount {
                 }
             };
 
-    private String description;
-    private BigDecimal value;
-
-    private AppliedDiscount(String description, BigDecimal value) {
-        this.description = description;
-        this.value = value;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    /**
-     * Value of the discount is returned as a positive price (assuming a reduction).
-     * @return
-     */
-    public BigDecimal getValue() {
-        return value;
-    }
+    String description;
+    BigDecimal value;
 
     public String display() {
         return String.format("%s: -%s", getDescription(), AmountFormatter.format(getValue()));
-    }
-
-    public static Builder builder() {
-        return new Builder();
-    }
-
-    public static class Builder {
-        private String description;
-        private BigDecimal value;
-
-        public Builder description(String description) {
-            this.description = description;
-            return this;
-        }
-
-        public Builder value(BigDecimal value) {
-            this.value = value;
-            return this;
-        }
-
-        public AppliedDiscount build() {
-            return new AppliedDiscount(description, value);
-        }
     }
 }
