@@ -6,13 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Profile;
 import pricebasket.domain.AppliedDiscount;
 import pricebasket.domain.BasketPriceResult;
 import pricebasket.domain.Product;
 
-import java.io.PrintStream;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.stream.Collectors;
@@ -33,28 +30,19 @@ public class Application
     @Autowired
     private BasketPricer pricer;
 
-    @Autowired
-    private PrintStream output;
-
-    @Bean
-    @Profile("!Test")
-    public PrintStream output() {
-        return System.out;
-    }
-
     @Override
     public void run(String... args) {
         LOG.debug("Running Basket Pricer");
 
         BasketPriceResult result = pricer.priceBasket(asProducts(args));
 
-        output.printf("Subtotal: %s\n", format(result.getSubTotal()));
+        System.out.printf("Subtotal: %s\n", format(result.getSubTotal()));
         for (AppliedDiscount discount : result.getAppliedDiscounts()) {
 
-            output.println(discount.display());
+            System.out.println(discount.display());
         }
-        output.printf("Total: %s\n", format(result.getTotal()));
-
+        System.out.printf("Total: %s\n", format(result.getTotal()));
+        System.out.flush();
     }
 
     private static Collection<Product> asProducts(String... names) {

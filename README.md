@@ -8,14 +8,14 @@ There is a PriceBasket bash script (you may have to set this to executable) whic
 `Subtotal: £4.40`\
 `Apples 10% off: -10p`\
 `Buy 2 of Soup get 1 Bread at 50% off: -40p`\
-`Total: £3.90`\
+`Total: £3.90`
 
 Or you can use the java executable jar 
 
 `java -jar build/libs/pricebasket-1.0.0.jar Milk Milk`\
 `Subtotal: £2.60`\
 `(no offers available)`\
-`Total: £2.60` \
+`Total: £2.60` 
 
 I have currently set up products Milk, Bread, Soup and Apples. These appear in the file src/main/resources/prices.properties, where you can add or change the priceof existing products.
 
