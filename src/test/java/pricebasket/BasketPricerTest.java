@@ -111,7 +111,7 @@ public class BasketPricerTest {
 
         @Bean
         public BasketPricer basketPricer() {
-            return new BasketPricer();
+            return new BasketPricer(productPricer(), discountRepository());
         }
 
         @Bean

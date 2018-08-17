@@ -1,6 +1,5 @@
 package pricebasket;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import pricebasket.discounts.DiscountRepository;
 import pricebasket.domain.AppliedDiscount;
@@ -25,11 +24,14 @@ import static pricebasket.domain.AppliedDiscount.NO_DISCOUNT;
 @Component
 public class BasketPricer {
 
-    @Autowired
     private ProductPricer productPricer;
 
-    @Autowired
     private DiscountRepository discountRepository;
+
+    public BasketPricer(ProductPricer productPricer, DiscountRepository discountRepository) {
+        this.productPricer = productPricer;
+        this.discountRepository = discountRepository;
+    }
 
     public BasketPriceResult priceBasket(Collection<Product> products) {
         Collection<PricedProduct> pricedProducts = products.stream().map(product ->
