@@ -48,10 +48,7 @@ public class CorrespondingProductDiscount extends PricePercentageDiscount {
     @Override
     public boolean isApplicable(Collection<PricedProduct> products) {
         long count =  products.stream()
-                .filter(product -> {
-                    boolean  match = qualifyingProduct.equals(product.getProduct());
-                    return match;
-                })
+                .filter(product -> qualifyingProduct.equals(product.getProduct()))
                 .limit(minimumQualifyingAmount)
                 .count();
         return count >= minimumQualifyingAmount;
