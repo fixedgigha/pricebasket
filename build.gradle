@@ -3,14 +3,14 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'org.springframework.boot:spring-boot-gradle-plugin:2.0.3.RELEASE'
+        classpath 'org.springframework.boot:spring-boot-gradle-plugin:2.0.6.RELEASE'
     }
 }
 
 apply plugin: 'java'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
-apply plugin: 'jacoco'
+//apply plugin: 'jacoco'
 
 bootJar {
     baseName = 'pricebasket'
@@ -27,6 +27,8 @@ repositories {
 dependencies {
     compile 'org.springframework.boot:spring-boot-starter'
     compile 'com.google.guava:guava:26.0-jre'
+    runtime 'org.glassfish.jaxb:jaxb-runtime:2.3.1'
+    testCompile 'org.mockito:mockito-core:2.23.0'
     testCompile 'org.springframework.boot:spring-boot-starter-test'
 }
 
